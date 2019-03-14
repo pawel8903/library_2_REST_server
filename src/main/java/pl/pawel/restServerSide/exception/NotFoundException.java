@@ -1,29 +1,29 @@
 package pl.pawel.restServerSide.exception;
 
-public class BookNotFoundException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
 
-	public BookNotFoundException() {
+	public NotFoundException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookNotFoundException(String message, Throwable cause, boolean enableSuppression,
+	public NotFoundException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookNotFoundException(String message, Throwable cause) {
+	public NotFoundException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookNotFoundException(String message) {
+	public NotFoundException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookNotFoundException(Throwable cause) {
+	public NotFoundException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}

@@ -6,26 +6,26 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class BookRestExceptionHandler {
+public class RestExceptionHandler {
 	
 	@ExceptionHandler
-	public ResponseEntity<BookErrorResponse> handleEXception(BookNotFoundException exc ){
+	public ResponseEntity<ErrorResponse> handleEXception(NotFoundException exc ){
 		
-		BookErrorResponse error = new BookErrorResponse(
+		ErrorResponse error = new ErrorResponse(
 				HttpStatus.NOT_FOUND.value(),
 				exc.getMessage(),System.currentTimeMillis());
 		
-		return new ResponseEntity<BookErrorResponse>(error,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ErrorResponse>(error,HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler
-	public ResponseEntity<BookErrorResponse> handleException(Exception exc){
+	public ResponseEntity<ErrorResponse> handleException(Exception exc){
 		
-		BookErrorResponse error = new BookErrorResponse(
+		ErrorResponse error = new ErrorResponse(
 				HttpStatus.BAD_REQUEST.value(),
 				exc.getMessage(),
 				System.currentTimeMillis());
 		
-		return new ResponseEntity<BookErrorResponse>(error,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<ErrorResponse>(error,HttpStatus.BAD_REQUEST);
 	}
 }

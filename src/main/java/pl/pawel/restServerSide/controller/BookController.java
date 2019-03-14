@@ -13,53 +13,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.pawel.restServerSide.entity.Book;
-import pl.pawel.restServerSide.exception.BookNotFoundException;
+import pl.pawel.restServerSide.exception.NotFoundException;
 import pl.pawel.restServerSide.service.BookService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/book")
 public class BookController {
 	
 	@Autowired
 	private BookService bookService;
 	
-	@GetMapping("/books")
+	@GetMapping("/bookList")
 	public List<Book> getBooks(){
 		
 		return bookService.getBooks();
 	}
 	
-	@GetMapping("/book/{bookId}")
+	@GetMapping("/{bookId}")
 	public Book getBook(@PathVariable int bookId) {
 		Book book = bookService.getBook(bookId);
 		
 		if(book == null) {
-			throw new BookNotFoundException("Book id not found:"+bookId);
+			throw new NotFoundException("Book id not found:"+bookId);
 		}
 		return book;
 	}
 	
-	@PostMapping("/book")
+	@PostMapping()
 	public Book addBook(@RequestBody Book book) {
 		book.setId(0);
-		
+		System.out.println(book.getAvailableNumber());
 		bookService.saveBook(book);
 		
 		return book;
 	}
 	
-	@PutMapping("/book")
+	@PutMapping()
 	public Book updateBook(@RequestBody Book book) {
 		bookService.saveBook(book);
 		
 		return book;
 	}
 	
-	@DeleteMapping("/book/{bookId}")
+	@DeleteMapping("/{bookId}")
 	public String deleteBook(@PathVariable int bookId) {
 		Book book = bookService.getBook(bookId);
 		if(book ==null) {
-			throw new BookNotFoundException("Book id not found:"+bookId);
+			throw new NotFoundException("Book id not found:"+bookId);
 		}
 		bookService.deleteBook(bookId);
 		

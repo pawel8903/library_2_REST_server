@@ -1,11 +1,20 @@
 package pl.pawel.restServerSide.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="books")
@@ -24,8 +33,17 @@ public class Book {
 	@Column(name="description")
 	private String description;
 	
+	@Column(name="available_number")
+	private int availableNumber;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name="book_type",
+			joinColumns=@JoinColumn(name="FK_book"),
+			inverseJoinColumns=@JoinColumn(name="FK_type"))
+	private List<Type> types;
+	
 	public Book() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
@@ -60,10 +78,36 @@ public class Book {
 		this.description = description;
 	}
 
+	
+	public int getAvailableNumber() {
+		return availableNumber;
+	}
+
+	public void setAvailableNumber(int availableNumber) {
+		this.availableNumber = availableNumber;
+	}
+
+	public List<Type> getTypes() {
+		return types;
+	}
+
+	public void setTypes(List<Type> types) {
+		this.types = types;
+	}
+
+	public void addType(Type type) {
+		if(types == null) {
+			types = new ArrayList<>();
+		}
+		types.add(type);
+	}
+
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", description=" + description + "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", description=" + description
+				+ ", availableNumber=" + availableNumber + ", types=" + types + "]";
 	}
+	
 	
 	
 }
